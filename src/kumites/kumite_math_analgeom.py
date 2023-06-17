@@ -2,6 +2,26 @@ import re
 
 
 class KumiteMathAnalGeom:
+    def __init__(self):
+        self.P = re.compile(r'\((-?\d*)(\w)\+?(-?\d+)\)\^(\d+)')
+
+    def binomial_expansion(self, expr):
+        a, v, b, e = self.P.findall(expr)[0]
+
+        if e == '0': return '1'
+
+        o = [int(a != '-' and a or a and '-1' or '1'), int(b)]
+        e, p = int(e), o[:]
+
+        for _ in range(e - 1):
+            p.append(0)
+            p = [o[0] * coef + p[i - 1] * o[1] for i, coef in enumerate(p)]
+
+        res = '+'.join(f'{coef}{v}^{e - i}' if i != e else str(coef) for i, coef in enumerate(p) if coef)
+
+        return re.sub(r'\b1(?=[a-z])|\^1\b', '', res).replace('+-', '-')
+
+class KumiteMathAnalGeomExample:
     def combination(self, k, n):
         if k == 0:
             return 1
