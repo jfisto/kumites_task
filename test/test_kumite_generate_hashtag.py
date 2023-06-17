@@ -1,5 +1,5 @@
 import unittest
-import src.kumites.generate_hashtag as genhash
+import src.kumites.kumite_generate_hashtag as genhash
 
 class TestKumiteGenerateHashtag(unittest.TestCase):
     def test_generate_hashtag_correct_1(self):
